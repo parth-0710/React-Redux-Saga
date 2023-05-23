@@ -26,7 +26,7 @@ export const cartData=(data=[],action)=>{
             return [...data];
        
     default:
-        return [];
+        return data;
     }
 
 }
