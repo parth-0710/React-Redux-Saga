@@ -1,18 +1,23 @@
-import { takeEvery, put } from 'redux-saga/effects';
-import { PRODUCT_LIST, SET_PRODUCT_LIST } from './constant';
+import { takeEvery, put } from 'redux-saga/effects'
+import { PRODUCT_LIST, SEARCH_PRODUCT, SET_PRODUCT_LIST } from './constant';
 
-function* getProducts()
- {
-  let data = yield fetch("http://localhost:3500/product");
-  data = yield data.json();
-  yield put({ type: SET_PRODUCT_LIST, data });
+function* getProducts() {
+    let data = yield fetch('http://localhost:3500/product');
+    data = yield data.json();
+    console.warn("action is called", data)
+    yield put({type: SET_PRODUCT_LIST, data})
 }
 
+function* searchProducts(data) {
+    let result = yield fetch(`http://localhost:3500/product?q=${data.query}`);
+    result = yield result.json();
+    console.warn("action is called", result)
+    yield put({type: SET_PRODUCT_LIST, data:result})
+}
 
-function* productSaga()
-{
-  //Generator function - Handle Async Function
-  yield takeEvery(PRODUCT_LIST, getProducts);
+function* productSaga() {
+    yield takeEvery(PRODUCT_LIST, getProducts)
+    yield takeEvery(SEARCH_PRODUCT, searchProducts)
 
 }
 

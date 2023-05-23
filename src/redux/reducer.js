@@ -17,8 +17,10 @@ export const cartData=(data=[],action)=>{
 
             case REMOVE_FROM_CART:
             console.warn("REMOVE_FROM_CART is called",action);
-            data.length=data.length?data.length-1:[]
-            return [...data];
+            const remainingItem=data.filter((item)=>item.id!==action.data);
+            
+            //data.length=data.length?data.length-1:[]
+            return [...remainingItem];
 
             case EMPTY_CART:
             console.warn("EMPTY_CART is called",action);
