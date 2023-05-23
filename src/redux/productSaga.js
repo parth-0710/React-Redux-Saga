@@ -23,4 +23,3 @@ function* productSaga() {
 
 export default productSaga;
 
-// nfskdjbsdj?
